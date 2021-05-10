@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Admins;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Arr;
@@ -22,6 +23,61 @@ class AuthController extends Controller
 
   //   ];
   // }
+  public function upgrade(Request $request)
+  {
+    $validator = Validator::make(
+      $request->all(),
+      [
+        "id" => 'required|numeric',
+        "confirm" => 'required|boolean'
+      ]
+    );
+    if ($validator->fails()) {
+      return response()->json(
+        [$validator->errors()],
+        422
+      );
+    }
+    if ($request['confirm']) {
+      $Mod = Admins::find($request['id']);
+      $createAdmin = DB::table('Admins')
+      ->insert([
+        'username' => $Mod['username'],
+        'name' => $Mod['name'],
+        'email' => $Mod['email'],
+        'password' => $Mod['password'],
+        'SocialMedia' =>  $Mod['SocialMedia'],
+        // 'gender' =>  $request['gender'],
+        'urlAvatar' => $Mod['urlAvatar'],
+        'created_at' => $Mod['created_at'],
+        'updated_at' => $Mod['updated_at']
+      ]);
+      $Mod->delete();
+      
+      return $Mod;
+    }
+  }
+  public function delete(Request $request)
+  {
+    $validator = Validator::make(
+      $request->all(),
+      [
+        "id" => 'required|numeric',
+        "confirm" => 'required|boolean'
+      ]
+    );
+    if ($validator->fails()) {
+      return response()->json(
+        [$validator->errors()],
+        422
+      );
+    }
+    if ($request['confirm']) {
+      $Mod = Admins::find($request['id']);
+      $Mod->delete();
+      return "successful";
+    }
+  }
   private function createJsonResult($response)
   {
     $result = response()->json($response, 200);
