@@ -26,3 +26,13 @@ Route::group(
     Route::post('logout', 'AuthController@logout')->name('logout');
   }
 );
+Route::group(
+  [
+    'middleware' => 'api',
+    'namespace'  => 'App\Http\Controllers',
+    'prefix'     => 'mod',
+  ],
+  function ($router) {
+    Route::get('showModsList', 'ModController@showModsList')->name('showModsList');
+  }
+);
