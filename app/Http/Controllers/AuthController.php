@@ -23,7 +23,7 @@ class AuthController extends Controller
 
   //   ];
   // }
-  public function upgrade(Request $request)
+  public function downgrade(Request $request)
   {
     $validator = Validator::make(
       $request->all(),
@@ -39,22 +39,22 @@ class AuthController extends Controller
       );
     }
     if ($request['confirm']) {
-      $Mod = Admins::find($request['id']);
-      $createAdmin = DB::table('Admins')
+      $Admin = Admins::find($request['id']);
+      $createAdmin = DB::table('Moderators')
       ->insert([
-        'username' => $Mod['username'],
-        'name' => $Mod['name'],
-        'email' => $Mod['email'],
-        'password' => $Mod['password'],
-        'SocialMedia' =>  $Mod['SocialMedia'],
+        'username' => $Admin['username'],
+        'name' => $Admin['name'],
+        'email' => $Admin['email'],
+        'password' => $Admin['password'],
+        'SocialMedia' =>  $Admin['SocialMedia'],
         // 'gender' =>  $request['gender'],
-        'urlAvatar' => $Mod['urlAvatar'],
-        'created_at' => $Mod['created_at'],
-        'updated_at' => $Mod['updated_at']
+        'urlAvatar' => $Admin['urlAvatar'],
+        'created_at' => $Admin['created_at'],
+        'updated_at' => $Admin['updated_at']
       ]);
-      $Mod->delete();
+      $Admin->delete();
       
-      return $Mod;
+      return $Admin;
     }
   }
   public function delete(Request $request)
