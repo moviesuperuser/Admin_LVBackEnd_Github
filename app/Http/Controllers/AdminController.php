@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\Moderators;
+use App\Models\Admins;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-class ModController extends Controller
+class AdminController extends Controller
 {
   public function delete(Request $request)
   {
@@ -29,8 +29,8 @@ class ModController extends Controller
       );
     }
     if ($request['confirm']) {
-      $Mod = Moderators::find($request['id']);
-      $Mod->delete();
+      $Admin = Admins::find($request['id']);
+      $Admin->delete();
       return "successful";
     }
   }
@@ -41,7 +41,7 @@ class ModController extends Controller
       ->header('Access-Control-Allow-Origin', '*')
       ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   }
-  public function showModsList(Request $request)
+  public function showAdminsList(Request $request)
   {
 
     // $this->request = $this->reformatRequest(Request::capture()->all());
@@ -51,22 +51,22 @@ class ModController extends Controller
     } else {
       $current_page = 1;
     }
-    if ($request['modnumber']) {
-      $show_product = $request['modnumber'];
+    if ($request['Adminnumber']) {
+      $show_product = $request['Adminnumber'];
       // dd($show_product);
     } else {
       $show_product = 7;
     }
     $skip_product_in_page = ($current_page - 1) * $show_product;
-    $mod = Moderators::orderBy('id', 'asc')->where('name', 'like', '%' . $request['Title'] . '%')->skip($skip_product_in_page)->take($show_product)->get();
-    $modTotal = Moderators::where('name', 'like', '%' . $request['Title'] . '%')->get();
-    $modNum = count($modTotal);
+    $Admin = Adminerators::orderBy('id', 'asc')->where('name', 'like', '%' . $request['Title'] . '%')->skip($skip_product_in_page)->take($show_product)->get();
+    $AdminTotal = Adminerators::where('name', 'like', '%' . $request['Title'] . '%')->get();
+    $AdminNum = count($AdminTotal);
     $resultJson = array(
       'currentPage' => $current_page,
-      'modNumber' => count($mod),
-      'modMaxNumber' => $show_product,
-      'totalPage' => ceil($modNum / $show_product),
-      'result' => $mod
+      'AdminNumber' => count($Admin),
+      'AdminMaxNumber' => $show_product,
+      'totalPage' => ceil($AdminNum / $show_product),
+      'result' => $Admin
     );
     return $this->createJsonResult($resultJson);
   }

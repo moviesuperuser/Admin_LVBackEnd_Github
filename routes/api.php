@@ -36,3 +36,15 @@ Route::group(
     Route::get('showModsList', 'ModController@showModsList')->name('showModsList');
   }
 );
+Route::group(
+  [
+    'middleware' => 'api',
+    'namespace'  => 'App\Http\Controllers',
+    'prefix'     => 'admin',
+  ],
+  function ($router) {
+    Route::get('showAdminsList', 'AdminController@showAdminsList')->name('showAdminsList');
+    Route::get('delete', 'AdminController@delete')->name('delete');
+  }
+);
+
