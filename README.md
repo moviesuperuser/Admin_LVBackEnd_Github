@@ -14,11 +14,5 @@
 ```
 
 3. disableFlagAction: \
-   `/api/comment/disableFlagAction` : POST method \
-   Required post `request` parameters `IdComment`,`IdUser`\
-   Parameters in `request`
-
-```php
-        'IdComment' => 'required|numeric',
-        'IdUser'    => 'required|numeric'
-```
+   `/api/comment/disableFlagAction/{IdComment}` : POST method \
+ 

@@ -11,29 +11,16 @@ use Illuminate\Support\Facades\Validator;
 
 class CommentsController extends Controller
 {
-  public function disableFlagAction(Request $request)
+  public function disableFlagAction($IdComment)
   {
-    $validator = Validator::make(
-      $request->all(),
-      [
-        'IdComment' => 'required|numeric'
-      ]
-    );
-    if ($validator->fails()) {
-      return response()->json(
-        [$validator->errors()],
-        422
-      );
-    }
     $action_check = (array)DB::table('Flag_action')
-      ->where('IdComment', $request['IdComment'])
+      ->where('IdComment', $IdComment)
       ->select('IdComment')
       ->first();
     if (count($action_check) == 1) {
       $action_Comment_check = DB::table('Flag_action')
-        ->where('IdComment', $request['IdComment'])
+        ->where('IdComment', $IdComment)
         ->delete();
-      $IdComment = $request['IdComment'];
       $Update_FLag_Comment = DB::update('UPDATE Comments SET Flag = 0 where id=' . $IdComment);
       return response()->json(
         "Successfull",
