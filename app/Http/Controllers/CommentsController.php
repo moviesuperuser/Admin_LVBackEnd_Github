@@ -16,8 +16,7 @@ class CommentsController extends Controller
     $validator = Validator::make(
       $request->all(),
       [
-        'IdComment' => 'required|numeric',
-        'IdUser'    => 'required|numeric'
+        'IdComment' => 'required|numeric'
       ]
     );
     if ($validator->fails()) {
