@@ -47,6 +47,7 @@ Route::group(
   function ($router) {
     Route::get('showCommentFlagList', 'CommentsController@showCommentFlagList');
     Route::post('deleteFlagComment', 'CommentsController@deleteFlagComment');
+    Route::post('disableFlagAction', 'CommentsController@disableFlagAction');
     // Route::get('showCommentsUserDisLike', 'CommentsController@showCommentsUserDisLike');
   }
 );
