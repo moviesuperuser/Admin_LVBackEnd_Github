@@ -28,13 +28,11 @@ class CommentsController extends Controller
     }
     $action_check = (array)DB::table('Flag_action')
       ->where('IdComment', $request['IdComment'])
-      ->where('IdUSer', $request['IdUser'])
       ->select('IdComment')
       ->first();
     if (count($action_check) == 1) {
       $action_Comment_check = DB::table('Flag_action')
         ->where('IdComment', $request['IdComment'])
-        ->where('IdUser', $request['IdUser'])
         ->delete();
       $IdComment = $request['IdComment'];
       $Update_FLag_Comment = DB::update('UPDATE Comments SET Flag = 0 where id=' . $IdComment);
