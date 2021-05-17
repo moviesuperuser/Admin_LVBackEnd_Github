@@ -42,6 +42,18 @@ Route::group(
   [
     'middleware' => 'api',
     'namespace'  => 'App\Http\Controllers',
+    'prefix'     => 'comment',
+  ],
+  function ($router) {
+    Route::get('showCommentFlagList', 'CommentsController@showCommentFlagList');
+    Route::post('deleteFlagComment', 'CommentsController@deleteFlagComment');
+    // Route::get('showCommentsUserDisLike', 'CommentsController@showCommentsUserDisLike');
+  }
+);
+Route::group(
+  [
+    'middleware' => 'api',
+    'namespace'  => 'App\Http\Controllers',
     'prefix'     => 'admin',
   ],
   function ($router) {
