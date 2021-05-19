@@ -62,4 +62,15 @@ Route::group(
     Route::get('delete', 'AdminController@delete')->name('delete');
   }
 );
+Route::group(
+  [
+    'middleware' => 'api',
+    'namespace'  => 'App\Http\Controllers',
+    'prefix'     => 'user',
+  ],
+  function ($router) {
+    Route::get('showUsersList', 'UserController@showUsersList')->name('showUsersList');
+    Route::get('delete', 'UserController@delete')->name('delete');
+  }
+);
 

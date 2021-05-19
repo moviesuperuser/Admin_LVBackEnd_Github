@@ -1,0 +1,73 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+use App\Models\User;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+
+class UserController extends Controller
+{
+  public function delete(Request $request)
+  {
+    $validator = Validator::make(
+      $request->all(),
+      [
+        "id" => 'required|numeric',
+        "confirm" => 'required|boolean'
+      ]
+    );
+    if ($validator->fails()) {
+      return response()->json(
+        [$validator->errors()],
+        422
+      );
+    }
+    if ($request['confirm']) {
+      $User = User::find($request['id']);
+      $User->delete();
+      return "successful";
+    }
+  }
+  private function createJsonResult($response)
+  {
+    $result = response()->json($response, 200);
+    return $result
+      ->header('Access-Control-Allow-Origin', '*')
+      ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  }
+  public function showUsersList(Request $request)
+  {
+
+    // $this->request = $this->reformatRequest(Request::capture()->all());
+    if ($request['page']) {
+      $current_page = $request['page'];
+      // dd($current_page);
+    } else {
+      $current_page = 1;
+    }
+    if ($request['Usernumber']) {
+      $show_product = $request['Usernumber'];
+      // dd($show_product);
+    } else {
+      $show_product = 20;
+    }
+    $skip_product_in_page = ($current_page - 1) * $show_product;
+    $User = User::orderBy('id', 'asc')->where('name', 'like', '%' . $request['Title'] . '%')->skip($skip_product_in_page)->take($show_product)->get();
+    $UserTotal = User::where('name', 'like', '%' . $request['Title'] . '%')->get();
+    $UserNum = count($UserTotal);
+    $resultJson = array(
+      'currentPage' => $current_page,
+      'UserNumber' => count($User),
+      'UserMaxNumber' => $show_product,
+      'totalPage' => ceil($UserNum / $show_product),
+      'result' => $User
+    );
+    return $this->createJsonResult($resultJson);
+  }
+}
