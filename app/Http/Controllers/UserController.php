@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
+use Recombee\RecommApi\Client;
+
+use Recombee\RecommApi\Requests as Reqs;
+
 class UserController extends Controller
 {
   public function delete(Request $request)
@@ -31,6 +35,9 @@ class UserController extends Controller
     if ($request['confirm']) {
       $User = User::find($request['id']);
       $User->delete();
+      $client = new Client("movies1-dev", 'STcW4eS49qmjx4HBE7bJfklV7uDqNdKMoTBlP1rsGEf3kDPUSjCVC5AQlAn6QSle');
+      $requestRecombee =  new Reqs\DeleteUser($request['id']);
+      $client->send($requestRecombee);
       return "successful";
     }
   }
