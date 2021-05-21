@@ -16,3 +16,20 @@
         'IdComment' => 'required|numeric',
         'IdUser'    => 'required|numeric'
 ```
+### API LiveStream:
+
+1. showLiveStreamList: \
+   `/api/livestream/showLiveStreamList` : GET method
+
+2. addLivestream: \
+   `/api/livestream/addLivestream` : POST method \
+   Required post `request` parameters `Title`,`Link`,`Start_time`,`Genres`\
+   Parameters in `request`
+
+```php
+        "Title" => 'required|string',
+        "Link" => 'required|string',
+        "Start_time" => 'required|date',
+        "Genres" => 'required|string',
+```
+
