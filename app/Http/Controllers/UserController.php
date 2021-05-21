@@ -50,7 +50,6 @@ class UserController extends Controller
   }
   public function showUsersList(Request $request)
   {
-
     // $this->request = $this->reformatRequest(Request::capture()->all());
     if ($request['page']) {
       $current_page = $request['page'];

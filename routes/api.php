@@ -83,6 +83,8 @@ Route::group(
   function ($router) {
     Route::get('showLiveStreamList', 'LivestreamController@showLiveStreamList')->name('showLiveStreamList');
     Route::post('addLivestream', 'LivestreamController@addLivestream')->name('addLivestream');
+    Route::post('editLivestream', 'LivestreamController@editLivestream')->name('editLivestream');
+    Route::get('deleteLivestream/{LivestreamId}', 'LivestreamController@deleteLivestream')->name('deleteLivestream');
   }
 );
 

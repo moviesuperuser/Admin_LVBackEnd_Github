@@ -42,4 +42,35 @@ class LivestreamController extends Controller
     $Livestream->save();
     return "Successful";
   }
+  public function editLivestream(Request $request){
+    $validator = Validator::make(
+      $request->all(),
+      [
+        "LivestreamId"=> 'required|numeric',
+        "Title" => 'required|string',
+        "Link" => 'required|string',
+        "Start_time" => 'required|date',
+        "Genres" => 'required|string',
+
+      ]
+    );
+    if ($validator->fails()) {
+      return response()->json(
+        [$validator->errors()],
+        422
+      );
+    }
+    $Livestream = Livestream::find($request->LivestreamId);
+    $Livestream->Title = $request->Title;
+    $Livestream->Link = $request->Link;
+    $Livestream->Start_time = $request->Start_time;
+    $Livestream->Genres = $request->Genres;
+    $Livestream->save();
+    return "Successful";
+  }
+  public function deleteLivestream($LivestreamId){
+    $Livestream = Livestream::find($LivestreamId);
+    $Livestream->delete();
+    return "Successful";
+  }
 }

@@ -32,4 +32,18 @@
         "Start_time" => 'required|date',
         "Genres" => 'required|string',
 ```
+2. editLivestream: \
+   `/api/livestream/editLivestream` : POST method \
+   Required post `request` parameters `LivestreamId`,`Title`,`Link`,`Start_time`,`Genres`\
+   Parameters in `request`
+
+```php
+        "LivestreamId" => 'required|numeric',
+        "Title" => 'required|string',
+        "Link" => 'required|string',
+        "Start_time" => 'required|date',
+        "Genres" => 'required|string',
+```
+2. addLivestream: \
+   `/api/livestream/deleteLivestream/{LivestreamId}` : GET method \
 
