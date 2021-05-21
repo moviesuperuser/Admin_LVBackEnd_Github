@@ -74,3 +74,15 @@ Route::group(
   }
 );
 
+Route::group(
+  [
+    'middleware' => 'api',
+    'namespace'  => 'App\Http\Controllers',
+    'prefix'     => 'livestream',
+  ],
+  function ($router) {
+    Route::get('showLiveStreamList', 'LivestreamController@showLiveStreamList')->name('showLiveStreamList');
+    Route::post('addLivestream', 'LivestreamController@addLivestream')->name('addLivestream');
+  }
+);
+

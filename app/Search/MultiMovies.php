@@ -15,6 +15,7 @@ class MultiMovies extends Aggregator
         \App\Models\Movie::class,
         \App\Models\Genre::class,
         \App\Models\Collection::class,
-        \App\Models\User::class
+        \App\Models\User::class,
+        \App\Models\Livestream::class
     ];
 }
