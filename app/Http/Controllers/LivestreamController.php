@@ -58,6 +58,8 @@ class LivestreamController extends Controller
         "Link" => 'required|string',
         "Start_time" => 'required|date',
         "Genres" => 'required|string',
+        "urlCover" => 'sometimes|string',
+        "Description" => 'sometimes|string',
 
       ]
     );
@@ -72,6 +74,8 @@ class LivestreamController extends Controller
     $Livestream->Link = $request->Link;
     $Livestream->Start_time = $request->Start_time;
     $Livestream->Genres = $request->Genres;
+    $Livestream->Genres = $request->urlCover;
+    $Livestream->Genres = $request->Description;
     $Livestream->save();
     return "Successful";
   }
@@ -84,6 +88,8 @@ class LivestreamController extends Controller
         "Link" => 'required|string',
         "Start_time" => 'required|date',
         "Genres" => 'required|string',
+        "urlCover" => 'sometimes|string',
+        "Description" => 'sometimes|string',
 
       ]
     );
@@ -98,6 +104,8 @@ class LivestreamController extends Controller
     $Livestream->Link = $request->Link;
     $Livestream->Start_time = $request->Start_time;
     $Livestream->Genres = $request->Genres;
+    $Livestream->Genres = $request->urlCover;
+    $Livestream->Genres = $request->Description;
     $Livestream->save();
     return "Successful";
   }
