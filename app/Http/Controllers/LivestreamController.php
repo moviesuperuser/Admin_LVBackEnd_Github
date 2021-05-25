@@ -32,7 +32,7 @@ class LivestreamController extends Controller
     }
     $skip_product_in_page = ($current_page - 1) * $show_product;
     $Livestream = Livestream::orderBy('id', 'asc')->where('Title', 'like', '%' . $request['Title'] . '%')->skip($skip_product_in_page)->take($show_product)->get();
-    $LivestreamTotal = Livestream::where('name', 'like', '%' . $request['Title'] . '%')->get();
+    $LivestreamTotal = Livestream::where('Title', 'like', '%' . $request['Title'] . '%')->get();
     $LivestreamNum = count($LivestreamTotal);
     $resultJson = array(
       'currentPage' => $current_page,
