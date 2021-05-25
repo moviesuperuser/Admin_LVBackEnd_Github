@@ -35,7 +35,7 @@ class LivestreamController extends Controller
       $show_product = $request['Livestreamnumber'];
       // dd($show_product);
     } else {
-      $show_product = 7;
+      $show_product = 20;
     }
     $skip_product_in_page = ($current_page - 1) * $show_product;
     $Livestream = Livestream::orderBy('id', 'asc')->where('Title', 'like', '%' . $request['Title'] . '%')->skip($skip_product_in_page)->take($show_product)->get();
