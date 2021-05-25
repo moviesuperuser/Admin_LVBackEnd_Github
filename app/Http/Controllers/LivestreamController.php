@@ -58,8 +58,8 @@ class LivestreamController extends Controller
         "Link" => 'required|string',
         "Start_time" => 'required|date',
         "Genres" => 'required|string',
-        "urlCover" => 'sometimes|string',
-        "Description" => 'sometimes|string',
+        "urlCover" => 'sometimes|string|nullable',
+        "Description" => 'sometimes|string|nullable',
 
       ]
     );
@@ -88,8 +88,8 @@ class LivestreamController extends Controller
         "Link" => 'required|string',
         "Start_time" => 'required|date',
         "Genres" => 'required|string',
-        "urlCover" => 'sometimes|string',
-        "Description" => 'sometimes|string',
+        "urlCover" => 'sometimes|string|nullable',
+        "Description" => 'sometimes|string|nullable',
 
       ]
     );
