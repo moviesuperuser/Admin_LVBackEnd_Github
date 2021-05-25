@@ -13,6 +13,13 @@ use Illuminate\Support\Str;
 
 class LivestreamController extends Controller
 {
+  private function createJsonResult($response)
+  {
+    $result = response()->json($response, 200);
+    return $result
+      ->header('Access-Control-Allow-Origin', '*')
+      ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  }
   public function showLiveStreamList(Request $request){
     // $LiveStreamList = Livestream::all();
     // return $LiveStreamList;
