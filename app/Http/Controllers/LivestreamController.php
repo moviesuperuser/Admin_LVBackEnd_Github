@@ -74,8 +74,8 @@ class LivestreamController extends Controller
     $Livestream->Link = $request->Link;
     $Livestream->Start_time = $request->Start_time;
     $Livestream->Genres = $request->Genres;
-    $Livestream->Genres = $request->urlCover;
-    $Livestream->Genres = $request->Description;
+    $Livestream->urlCover = $request->urlCover;
+    $Livestream->Description = $request->Description;
     $Livestream->save();
     return "Successful";
   }
@@ -104,8 +104,8 @@ class LivestreamController extends Controller
     $Livestream->Link = $request->Link;
     $Livestream->Start_time = $request->Start_time;
     $Livestream->Genres = $request->Genres;
-    $Livestream->Genres = $request->urlCover;
-    $Livestream->Genres = $request->Description;
+    $Livestream->urlCover = $request->urlCover;
+    $Livestream->Description = $request->Description;
     $Livestream->save();
     return "Successful";
   }
