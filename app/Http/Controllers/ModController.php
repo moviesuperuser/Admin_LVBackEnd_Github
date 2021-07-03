@@ -58,7 +58,7 @@ class ModController extends Controller
       $show_product = 7;
     }
     $skip_product_in_page = ($current_page - 1) * $show_product;
-    $mod = Moderators::orderBy('id', 'asc')->where('name', 'like', '%' . $request['Title'] . '%')->skip($skip_product_in_page)->take($show_product)->get();
+    $mod = Moderators::orderBy('id', 'desc')->where('name', 'like', '%' . $request['Title'] . '%')->skip($skip_product_in_page)->take($show_product)->get();
     $modTotal = Moderators::where('name', 'like', '%' . $request['Title'] . '%')->get();
     $modNum = count($modTotal);
     $resultJson = array(

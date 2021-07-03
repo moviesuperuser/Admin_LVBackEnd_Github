@@ -58,7 +58,7 @@ class AdminController extends Controller
       $show_product = 7;
     }
     $skip_product_in_page = ($current_page - 1) * $show_product;
-    $Admin = Admins::orderBy('id', 'asc')->where('name', 'like', '%' . $request['Title'] . '%')->skip($skip_product_in_page)->take($show_product)->get();
+    $Admin = Admins::orderBy('id', 'desc')->where('name', 'like', '%' . $request['Title'] . '%')->skip($skip_product_in_page)->take($show_product)->get();
     $AdminTotal = Admins::where('name', 'like', '%' . $request['Title'] . '%')->get();
     $AdminNum = count($AdminTotal);
     $resultJson = array(
