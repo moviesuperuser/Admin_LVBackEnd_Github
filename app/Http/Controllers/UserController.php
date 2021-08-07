@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
@@ -75,5 +76,71 @@ class UserController extends Controller
       'result' => $User
     );
     return $this->createJsonResult($resultJson);
+  }
+  public function BanUser(Request $request)
+  {
+    $validator = Validator::make(
+      $request->all(),
+      [
+        "UserId" => 'required|numeric'
+      ]
+    );
+    if ($validator->fails()) {
+      return response()->json(
+        [$validator->errors()],
+        422
+      );
+    }
+    $user = User::find($request['UserId']);
+    if (!isset($user)) {
+      return response()->json(
+        "User not found.",
+        404
+      );
+    } else {
+      $banExpired = $user['BAN_expired'];
+      $nowTime = Carbon::now('UTC');
+      if ($nowTime->lessThan($banExpired)) {
+        return response()->json(
+          "User đã bị ban.",
+          200
+        );
+      } else {
+        $bannedNum = $user['Banned'];
+        if ($bannedNum <= 3) {
+          $user->BAN_expired = Carbon::now('UTC')->addHours(3);
+          $user->Banned = $bannedNum + 1;
+          $user->save();
+          return response()->json(
+            "User " . $user['name'] . " đã bị ban trong 1h.",
+            200
+          );
+        } elseif ($bannedNum <= 5) {
+          $user['BAN_expired'] = Carbon::now('UTC')->addDays(1);
+          $user['Banned'] = $bannedNum + 1;
+          $user->save();
+          return response()->json(
+            "User " . $user['name'] . " đã bị ban trong 1 ngày.",
+            200
+          );
+        } elseif ($bannedNum <= 7) {
+          $user['BAN_expired'] = Carbon::now('UTC')->addDays(7);
+          $user['Banned'] = $bannedNum + 1;
+          $user->save();
+          return response()->json(
+            "User " . $user['name'] . " đã bị ban trong 7 ngày.",
+            200
+          );
+        } elseif ($bannedNum > 7) {
+          $user['BAN_expired'] = Carbon::now('UTC')->addYears(100);
+          $user['Banned'] = $bannedNum + 1;
+          $user->save();
+          return response()->json(
+            "User " . $user['name'] . " đã bị ban vĩnh viễn.",
+            200
+          );
+        }
+      }
+    }
   }
 }

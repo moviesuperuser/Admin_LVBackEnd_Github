@@ -71,6 +71,7 @@ Route::group(
   function ($router) {
     Route::get('showUsersList', 'UserController@showUsersList')->name('showUsersList');
     Route::get('delete', 'UserController@delete')->name('delete');
+    Route::post('banUser', 'UserController@BanUser')->name('banUser');
   }
 );
 
