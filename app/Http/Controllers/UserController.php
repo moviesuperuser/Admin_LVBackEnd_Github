@@ -54,7 +54,6 @@ class UserController extends Controller
     // $this->request = $this->reformatRequest(Request::capture()->all());
     if ($request['page']) {
       $current_page = $request['page'];
-      // dd($current_page);
     } else {
       $current_page = 1;
     }
