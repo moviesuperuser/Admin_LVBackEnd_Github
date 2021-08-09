@@ -131,7 +131,7 @@ class UserController extends Controller
             200
           );
         } elseif ($bannedNum > 7) {
-          $user['BAN_expired'] = Carbon::now('UTC')->addYears(100);
+          $user['BAN_expired'] = Carbon::now('UTC')->addYears(10);
           $user['Banned'] = $bannedNum + 1;
           $user->save();
           return response()->json(
